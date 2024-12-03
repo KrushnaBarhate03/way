@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Preview Design</title>
+    <style>
+
+      .container{
+        height: auto;
+        max-width: 1200px;
+        display: flex;
+        flex-wrap: wrap;
+        /* justify-content:space-evenly; */
+       /* margin: 20px;*/
+      }
+
+      .content {
+            height: auto;
+            width: 600px;
+            border: 1px solid black;
+            border-radius: 10px;
+            /* margin-right: 100px; */
+            padding: 10px 20px ;
+            margin-top:25px;
+            margin-left:80px;
+            
+          
+        }
+
+      #mainimg {
+        /* height: 430px; */
+        height: auto;
+        width: 500px;
+        margin-top:50px;
+
+        object-fit: cover;
+        border: 2px solid black;/* rgb(209, 16, 16);*/
+        /*box-shadow: 0px 4px 8px 1px rgb(125, 116, 116);*/
+        border-radius: 10px 12px;
+        padding: 3px;
+        /* margin-left: 10%; */
+        /* margin-top: 50px; */
+        cursor: pointer;
+        /*margin-right:200px;*/
+      }
+     
+
+      #img1 {
+        height: 80px;
+        width: 80px;
+        object-fit: cover;
+        border: 2px solid black;
+        margin: 40px;
+        /*margin-right: 500px;*/
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .h1 {
+        font-size: 40px;
+        color: black;
+      }
+
+      .rs {
+        font-size: 25px ; 
+      }
+
+      /*.del {
+        color: gray;
+        font-size: 20px;
+      }*/
+      .btn{
+        margin-top:10px;
+        font-weight:bold;
+        font-family:'Times New Roman', Times, serif;
+        font-size:15px;
+        margin-left:80px;
+      }
+
+      .quantity {
+        font-size: 38px;
+      }
+
+      .quantity button{
+        padding: 8px 15px;
+        font-size: 28px;
+        background-color: black;
+        color: white;
+        border-radius: 7px;
+      }
+
+      #quantity {
+        padding: 10px;
+        width: 50px;
+        font-size: 24px;
+        text-align: center;
+        background-color: bisque;
+      }
+
+      .subtotal {
+        font-size: 28px;
+      }
+
+      .rs1 {
+        border: 1px solid gray;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: rgb(2, 2, 113);
+        color: white;
+      }
+      
+
+      @media screen and (max-width: 768px) {
+        #img1 {
+          margin-top: 40px;
+          margin-left: 1px;
+          display: inline-block;
+          flex-direction: row;
+        }
+
+        .container{
+          display: flex;
+          flex-wrap: wrap;
+          margin: 1px;
+        }
+
+        #mainimg {
+          width: 40%;
+        }
+      }
+    
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <img src="../img/Hp one.jpg" id="img1" onclick="changeimg('../img/Hp one.jpg')" /> 
+        <img src="../img/HP two.jpg" id="img1" onclick="changeimg('../img/HP two.jpg')" /> 
+        <img src="../img/samsung book review5.jpg" id="img1" onclick="changeimg('../img/samsung book review5.jpg')" />
+        <img src="../img/samsung book 7.jpg" id="img1" onclick="changeimg('../img/samsung book 7.jpg')" />
+      </div>
+      <img src="../img/HP two.jpg" alt="realme" id="mainimg" />
+    
+      <div class="content">
+        <h2>HP Laptop</h2>
+        <img src="../icon/money.png" alt="rs" height="30px" width="30px">
+        <b><p class="price rs" id="price" data-price="33650">33650</p>
+        </b>
+        <div class="quantity">
+          <label for="quantity"> Quantity : </label> &nbsp;&nbsp;&nbsp;
+          <button>-</button>
+          <input id="quantity" type="text" value="1" />
+          <button>+</button>
+        </div>
+        <p class="subtotal">Total Price: <span class="rs1"> Rs.33650</span></p> 
+        <span>
+          <h3>Highlights</h3>
+          <ul>
+            <li>Brand: Hp</li>
+            <li>Model Name: Samsung Galaxy Book4</li>
+            <li>Screen Size: 15.6 Inches</li>
+            <li>RAM Memory Installed Size: 16GB</li>
+            <li>Operating System: Windows 11 Home
+            </li>
+          </ul>
+
+          <h3>Description</h3>
+          HP Laptop
+          <br>
+          HP Laptop 255 G9 (2024), AMD Ryzen 5 5625U Hexa Core - (8GB/512GB SSD/AMD Radeon Graphics/Windows 11) Thin and Light Business Laptop/15.6" (39.62cm)/Silver/1.47 kg/MS Office 2021        </span>
+      </div>
+    </div>
+    <a href="./../index.html">
+        <button class="btn">Back to Product</button>
+    </a>
+    
+    
+
+    <script>
+      function changeimg(imgname) {
+        const mainimg = document.getElementById("mainimg");
+        mainimg.src = imgname;
+      }
+
+      const decrementButton = document.querySelector(".quantity button:first-of-type");
+const incrementButton = document.querySelector(".quantity button:last-of-type");
+const quantityInput = document.querySelector("#quantity");
+const priceElement = document.querySelector("#price");
+const subtotalElement = document.querySelector(".subtotal");
+
+const pricePerItem = parseFloat(priceElement.getAttribute("data-price"));
+
+function updateSubtotal() {
+  const quantity = parseInt(quantityInput.value);
+  const subtotal = quantity * pricePerItem;
+  subtotalElement.textContent = `Subtotal: Rs. ${subtotal.toFixed(2)}`;
+}
+
+decrementButton.addEventListener("click", () => {
+  let currentQuantity = parseInt(quantityInput.value);
+  if (currentQuantity > 1) {
+    // currentQuantity--;
+    quantityInput.value = --currentQuantity;
+    updateSubtotal();
+  }
+});
+
+incrementButton.addEventListener("click", () => {
+  let currentQuantity = parseInt(quantityInput.value);
+  // currentQuantity++;
+  quantityInput.value = ++currentQuantity;
+  updateSubtotal();
+});
+
+quantityInput.addEventListener("input", () => {
+  let currentQuantity = parseInt(quantityInput.value);
+  if (currentQuantity < 1) {
+    quantityInput.value = 1;
+    currentQuantity = 1;
+  }
+  updateSubtotal();
+});
+
+updateSubtotal();
+
+function changeimg(imgname) {
+  const mainimg = document.getElementById("mainimg");
+  mainimg.src = imgname;
+}
+
+    </script>
+  </body>
+</html>

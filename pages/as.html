@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Preview Design</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 1200px;
+        width: auto;
+        display: flex;
+        flex-wrap: wrap;
+        /* justify-content: space-between; */
+        padding: 20px;
+        margin: 0 auto;
+        flex-direction: row;
+      }
+
+      .content {
+        width: 100%;
+        max-width: 600px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 25px;
+      }
+
+      #mainimg {
+        /* width: 100%; */
+        height: auto;
+        margin-top: 20px;
+        object-fit: cover;
+        border: 2px solid black;
+        border-radius: 10px 12px;
+        padding: 3px;
+        cursor: pointer;
+      }
+
+      .img-thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border: 2px solid black;
+        margin: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .img-thumbnail:hover {
+        transform: scale(1.1);
+      }
+
+      .price {
+        font-size: 25px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      .quantity {
+        font-size: 18px;
+        margin-top: 20px;
+      }
+
+      .quantity button {
+        padding: 8px 15px;
+        font-size: 18px;
+        background-color: black;
+        color: white;
+        border-radius: 7px;
+        cursor: pointer;
+        border: none;
+      }
+
+      #quantity {
+        width: 60px;
+        text-align: center;
+        font-size: 22px;
+        background-color: bisque;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .subtotal {
+        font-size: 28px;
+        margin-top: 20px;
+      }
+
+      .rs1 {
+        font-size: 24px;
+        font-weight: bold;
+        color: green;
+      }
+
+      .btn {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 15px;
+        padding: 10px 20px;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #555;
+      }
+
+      @media screen and (max-width: 768px) {
+        .container {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .content {
+          max-width: 100%;
+          margin-top: 20px;
+        }
+
+        #mainimg {
+          width: 90%;
+        }
+
+        .quantity button {
+          font-size: 22px;
+        }
+
+        .price {
+          font-size: 20px;
+        }
+
+        .subtotal {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <img
+          src="../img/Hp one.jpg"
+          class="img-thumbnail"
+          onclick="changeimg('../img/Hp one.jpg')"
+        />
+        <img
+          src="../img/HP two.jpg"
+          class="img-thumbnail"
+          onclick="changeimg('../img/HP two.jpg')"
+        />
+        <img
+          src="../img/samsung book review5.jpg"
+          class="img-thumbnail"
+          onclick="changeimg('../img/samsung book review5.jpg')"
+        />
+        <img
+          src="../img/samsung book 7.jpg"
+          class="img-thumbnail"
+          onclick="changeimg('../img/samsung book 7.jpg')"
+        />
+      </div>
+
+      <div>
+        <img src="../img/HP two.jpg" alt="HP Laptop" id="mainimg" />
+      </div>
+
+      <div class="content">
+        <h2>HP Laptop</h2>
+        <div class="price">
+          <img src="../icon/money.png" alt="rs" height="20px" width="20px" />
+          <b><p class="rs" id="price" data-price="33650">₹33,650</p></b>
+        </div>
+
+        <div class="quantity">
+          <label for="quantity">Quantity: </label>
+          <button onclick="decrementQuantity()">-</button>
+          <input id="quantity" type="text" value="1" />
+          <button onclick="incrementQuantity()">+</button>
+        </div>
+
+        <p class="subtotal">Total Price: <span class="rs1" id="total-price">₹33,650</span></p>
+
+        <h3>Highlights</h3>
+        <ul>
+          <li>Brand: HP</li>
+          <li>Model Name: Samsung Galaxy Book4</li>
+          <li>Screen Size: 15.6 Inches</li>
+          <li>RAM Memory Installed Size: 16GB</li>
+          <li>Operating System: Windows 11 Home</li>
+        </ul>
+
+        <h3>Description</h3>
+        <p>
+          HP Laptop 255 G9 (2024), AMD Ryzen 5 5625U Hexa Core - (8GB/512GB SSD/AMD Radeon Graphics/Windows 11) Thin and Light Business Laptop/15.6" (39.62cm)/Silver/1.47 kg/MS Office 2021
+        </p>
+      </div>
+    </div>
+
+    <a href="./../index.html">
+      <button class="btn">Back to Product</button>
+    </a>
+
+    <script>
+      function changeimg(imgname) {
+        const mainimg = document.getElementById("mainimg");
+        mainimg.src = imgname;
+      }
+
+      const priceElement = document.getElementById("price");
+      const totalPriceElement = document.getElementById("total-price");
+      const quantityInput = document.getElementById("quantity");
+      const pricePerItem = parseFloat(priceElement.getAttribute("data-price"));
+
+      function updateSubtotal() {
+        const quantity = parseInt(quantityInput.value);
+        const subtotal = quantity * pricePerItem;
+        totalPriceElement.textContent = `₹${subtotal.toFixed(2)}`;
+      }
+
+      function decrementQuantity() {
+        let currentQuantity = parseInt(quantityInput.value);
+        if (currentQuantity > 1) {
+          quantityInput.value = --currentQuantity;
+          updateSubtotal();
+        }
+      }
+
+      function incrementQuantity() {
+        let currentQuantity = parseInt(quantityInput.value);
+        quantityInput.value = ++currentQuantity;
+        updateSubtotal();
+      }
+
+      quantityInput.addEventListener("input", () => {
+        let currentQuantity = parseInt(quantityInput.value);
+        if (currentQuantity < 1) {
+          quantityInput.value = 1;
+          currentQuantity = 1;
+        }
+        updateSubtotal();
+      });
+
+      updateSubtotal(); // Initial call to set subtotal when the page loads
+    </script>
+  </body>
+</html>
